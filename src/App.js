@@ -7,17 +7,41 @@ import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.com
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' component={SignInAndSignUp} />
-      </Switch>
-    </div>
-  );
+import { auth } from './firebase/firebase.utils';
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentUser: null
+    };
+  }
+
+  unsubscribeFromAuth = null;
+
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(currentUser => {
+      this.setState({ currentUser });
+      console.log(currentUser);
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
+  render() {
+    return (
+      <div>
+        <Header currentUser={this.state.currentUser} />
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route path='/signin' component={SignInAndSignUp} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
