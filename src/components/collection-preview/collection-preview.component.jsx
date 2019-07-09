@@ -6,8 +6,8 @@ import './collection-preview.styles.scss';
 const CollectionPreview = ({ title, items, count }) => {
   const itemComponents = items
     .slice(0, count)
-    .map(({ id, ...otherItemProps }) => (
-      <CollectionItem key={id} {...otherItemProps} />
+    .map((item) => (
+      <CollectionItem key={item.id} item={item} />
     ));
 
   return (
