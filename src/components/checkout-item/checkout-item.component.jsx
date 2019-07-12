@@ -9,8 +9,13 @@ import {
 
 import './checkout-item.styles.scss';
 
-const CheckoutItem = ({ clearItem, addItem, removeItem, cartItem }) => {
-  const { name, imageUrl, price, quantity } = cartItem;
+const CheckoutItem = ({
+  clearItem,
+  addItem,
+  removeItem,
+  cartItem,
+  cartItem: { name, imageUrl, price, quantity }
+}) => {
   return (
     <div className='checkout-item'>
       <div className='image-container'>
