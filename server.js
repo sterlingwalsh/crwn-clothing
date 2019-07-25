@@ -13,7 +13,7 @@ const port = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const whitelist = ['https://crwn-web.herokuapp.com'];
+const whitelist = [];
 const corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
