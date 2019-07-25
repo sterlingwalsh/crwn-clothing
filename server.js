@@ -27,7 +27,7 @@ const corsOptions = {
 if (process.env.NODE_ENV === 'development') {
   app.use(cors());
 } else if (process.env.NODE_ENV === 'production') {
-  app.use(cors(corsOptions));
+  app.use(cors());
 }
 
 if (process.env.NODE_ENV === 'production') {
