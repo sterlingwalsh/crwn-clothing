@@ -2,7 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import CollectionItem from '../collection-item/collection-item.component';
-import './collection-preview.styles.scss';
+
+import {CollectionPreviewContainer, TitleContainer, PreviewContainer} from './collection-preview.styles';
 
 const CollectionPreview = ({
   title,
@@ -17,15 +18,14 @@ const CollectionPreview = ({
     .map(item => <CollectionItem key={item.id} item={item} />);
 
   return (
-    <div className='collection-preview'>
-      <h1
-        className='title'
+    <CollectionPreviewContainer>
+      <TitleContainer
         onClick={() => history.push(`${match.url}/${routeName}`)}
       >
         {title.toUpperCase()}
-      </h1>
-      <div className='preview'>{itemComponents}</div>
-    </div>
+      </TitleContainer>
+      <PreviewContainer>{itemComponents}</PreviewContainer>
+    </CollectionPreviewContainer>
   );
 };
 
