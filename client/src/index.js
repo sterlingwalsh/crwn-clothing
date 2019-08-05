@@ -8,6 +8,8 @@ import { store, persistor } from './redux/store';
 import './index.css';
 import App from './App';
 
+import * as serviceworker from './serviceWorker';
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -18,3 +20,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+serviceworker.register();
