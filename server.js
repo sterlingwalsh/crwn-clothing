@@ -18,21 +18,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
-const whitelist = [];
+const whitelist = ['http://localhost:3000', 'https://crwn-web.herokuapp.com'];
 const corsOptions = {
   origin: function(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+    if (!origin) return callback(null, true);
+    if (whitelist.indexOf(origin) === -1) {
+      const msg =
+        'The CORS policy for this site does not ' +
+        'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
     }
+    return callback(null, true);
   }
 };
 
 if (process.env.NODE_ENV === 'development') {
   app.use(cors());
 } else if (process.env.NODE_ENV === 'production') {
-  app.use(cors());
+  app.use(cors(corsOptions));
 }
 
 if (process.env.NODE_ENV === 'production') {
